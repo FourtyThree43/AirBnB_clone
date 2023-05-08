@@ -42,40 +42,41 @@ cd AirBnB_clone
 Your shell should work like this in interactive mode:
 
 ```bash
-./console.py
+$ ./console.py
 (hbnb) help
 
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
+
 (hbnb) 
 (hbnb) 
 (hbnb) quit
-
+$
 ```
 
 But also in non-interactive mode: (like the Shell project in C)
 
 ```bash
-echo "help" | ./console.py
+$ echo "help" | ./console.py
 (hbnb)
 
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
 (hbnb) 
-
-cat test_help
+$
+$ cat test_help
 help
-
- cat test_help | ./console.py
+$
+$ cat test_help | ./console.py
 (hbnb)
 
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
-(hbnb)
-
+(hbnb) 
+$
 ```
 
 ## Contributors
