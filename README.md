@@ -26,12 +26,12 @@ You won’t implement all the features, but be implemented in phases. After 4 mo
 
 ## Installation
 
-To install NumKey, clone the repository to your local machine and compile the `main.c` file:
+To Use the AIrBnB clone, clone the repository to your local machine and run the `console.py` file:
 
 ```bash
-git clone https://github.com/FourtyThree43/AirBnB_clone.git
-cd AirBnB_clone
-./console.py
+$ git clone https://github.com/FourtyThree43/AirBnB_clone.git
+$ cd AirBnB_clone
+$ ./console.py
 
 ```
 
