@@ -3,7 +3,7 @@
 
 from uuid import uuid4
 from datetime import datetime
-import models
+# import models
 
 
 class BaseModel:
@@ -69,4 +69,5 @@ class BaseModel:
             if isinstance(value, datetime):
                 value = value.isoformat()
             result[key] = value
+            result["__class__"] = self.__class__.__name__
         return result
