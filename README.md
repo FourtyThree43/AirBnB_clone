@@ -2,9 +2,12 @@
 
 ![Optional Text](hbnb.png)
 
+Welcome to the AirBnB clone project!
+
 ## Table of Contents
 - [Description-of-the-project](#description-of-the-project)
 - [Installation](#installation)
+- [Phase-One](#phase-one)
 - [Description-of-the-command-interpreter](#description-of-the-command-interpreter)
 - [Usage](#usage)
 - [Examples](#examples)
@@ -34,8 +37,20 @@ $ cd AirBnB_clone
 $ ./console.py
 
 ```
+## Phase One
+
+First step: Write a command interpreter to manage your AirBnB objects.
 
 ## Description of the command interpreter
+
+What’s a command interpreter?
+Do you remember the Shell? It’s exactly the same but limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
+
+- Create a new object (ex: a new User or a new Place)
+- Retrieve an object from a file, a database etc…
+- Do operations on objects (count, compute stats, etc…)
+- Update attributes of an object
+- Destroy an object
 
 ## Usage
 
