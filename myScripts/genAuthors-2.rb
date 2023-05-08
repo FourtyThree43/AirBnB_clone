@@ -39,4 +39,3 @@ end
 
 # Print the banner and the list of authors using Cowsay
 puts `echo "#{banner}\n\n#{names.join("\n")}\n\n#{emails.join("\n")}\n\n#{footer}"`
-
