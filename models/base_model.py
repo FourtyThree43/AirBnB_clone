@@ -26,6 +26,23 @@ class BaseModel:
     DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
 
     def __init__(self, *args, **kwargs) -> None:
+        """
+        Initializes a new Public instance of the current class BaseModel.
+
+        If no `kwargs` dictionary is provided, the method generates a
+        new `id` for the instance, sets the `created_at` and `updated_at`
+        attributes to the current datetime.
+
+        If a `kwargs` dictionary is provided, the method sets the instance's
+        attributes based on the keys and values in the dictionary.
+        If the value of a key is a string that matches the DATE_TIME_FORMAT
+        string of the instance, it is converted to a `datetime` object.
+
+        Args:
+            *args: (optional) arguments to initialize the instance
+            **kwargs: (optional) dictionary of attribute values to
+                      initialize the instance
+        """
         if not kwargs:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
@@ -62,9 +79,6 @@ class BaseModel:
         except for keys that start with an underscore. If a value is an
         instance of the `datetime` class, it is converted to an ISO-formatted
         string using the `isoformat()` method.
-
-        Args:
-            None
 
         Returns:
             A dictionary containing all non-private instance variables
