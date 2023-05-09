@@ -25,10 +25,18 @@ class BaseModel:
     '''
     DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
 
-    def __init__(self) -> None:
-        self.id: str = str(uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+    def __init__(self, *args, **kwargs) -> None:
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+        else:
+            for key, value in kwargs.items():
+                if key in ("updated_at", "created_at"):
+                    value = datetime.strptime(value, self.DATE_TIME_FORMAT)
+                elif key.startswith("id"):
+                    value = str(value)
+                setattr(self, key, value)
 
     def __str__(self) -> str:
         """
@@ -69,5 +77,4 @@ class BaseModel:
             if isinstance(value, datetime):
                 value = value.isoformat()
             map_objects[key] = value
-            map_objects["__class__"] = self.__class__.__name__
         return map_objects
