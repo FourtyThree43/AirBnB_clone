@@ -17,6 +17,7 @@ class FileStorage:
         - __objects (dict):empty but will store all objects by <class name>.id
                            (ex: to store a BaseModel object with id=12121212,
                             the key will be BaseModel.12121212)
+
     Methods:
         - all(self): returns the dictionary __objects.
         - new(self, obj):
