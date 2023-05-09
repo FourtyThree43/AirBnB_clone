@@ -64,9 +64,8 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, mode='r', encoding='utf-8') as file:
                 json_dict = json.load(file)
-
-            for obj_id, obj_attrs in json_dict.items():
-                class_name = obj_attrs['__class__']
-                cls = eval(class_name)
-                obj_instance = cls(**obj_attrs)
-                self.__objects[obj_id] = obj_instance
+            
+            for key, obj_dict in json_dict.items():
+                class_name, obj_id = key.split('.')
+                obj_class = eval(class_name)
+                self.__objects[key] = obj_class(**obj_dict)
