@@ -5,8 +5,6 @@ from models.base_model import BaseModel
 
 class Place(BaseModel):
     """Public class attributes that inherit from BaseModel"""
-    
-    
     city_id: str = ''
     user_id: str = ''
     name: str = ''
@@ -17,4 +15,4 @@ class Place(BaseModel):
     price_by_night: int = 0
     latitude: float = 0.0
     longitude: float = 0.0
-    amenity_ids: List[str] = []
+    amenity_ids: list = []
