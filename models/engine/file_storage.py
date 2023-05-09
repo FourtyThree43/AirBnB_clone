@@ -2,6 +2,7 @@
 """Module that define the FileStorage class"""
 
 import json
+import os
 from models.base_model import BaseModel
 
 
@@ -17,7 +18,6 @@ class FileStorage:
         - __objects (dict):empty but will store all objects by <class name>.id
                            (ex: to store a BaseModel object with id=12121212,
                             the key will be BaseModel.12121212)
-
     Methods:
         - all(self): returns the dictionary __objects.
         - new(self, obj):
@@ -48,12 +48,25 @@ class FileStorage:
         Serializes the dictionary __objects to a JSON file located at
         __file_path.
         """
-        objs_dict: dict = {}
-        for key, obj in self.__objects.items():
-            objs_dict[key] = obj.to_dict()
+        json_dict = {}
+        for obj_id, obj_instance in self.__objects.items():
+            json_dict[obj_id] = obj_instance.to_dict()
 
-        with open(self.__file_path, mode='w', encoding='utf-8') as f:
-            json.dump(objs_dict, f)
+        with open(self.__file_path, mode='w', encoding='utf-8') as file:
+            json.dump(json_dict, file)
 
     def reload(self) -> None:
-        pass
+        """
+        Deserializes the JSON file at __file_path into the dictionary
+        __objects.
+        If the JSON file (__file_path) does not exist, it does nothing.
+        """
+        if os.path.isfile(self.__file_path):
+            with open(self.__file_path, mode='r', encoding='utf-8') as file:
+                json_dict = json.load(file)
+
+            for obj_id, obj_attrs in json_dict.items():
+                class_name = obj_attrs['__class__']
+                cls = eval(class_name)
+                obj_instance = cls(**obj_attrs)
+                self.__objects[obj_id] = obj_instance
