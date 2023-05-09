@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ defines a class place"""
+from models.base_model import BaseModel
 
 
 class Place(BaseModel):

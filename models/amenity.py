@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines a class amenity"""
+from models.base_model import BaseModel
 
 
 class amenity(BaseModel):
