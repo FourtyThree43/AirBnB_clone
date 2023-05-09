@@ -26,7 +26,7 @@ class BaseModel:
     DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
 
     def __init__(self) -> None:
-        self.id = str(uuid4())
+        self.id: str = str(uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
 
@@ -62,12 +62,12 @@ class BaseModel:
             A dictionary containing all non-private instance variables
             and their values.
         """
-        result = {}
+        map_objects: dict = {}
         for key, value in self.__dict__.items():
             if key.startswith("_"):
                 continue
             if isinstance(value, datetime):
                 value = value.isoformat()
-            result[key] = value
-            result["__class__"] = self.__class__.__name__
-        return result
+            map_objects[key] = value
+            map_objects["__class__"] = self.__class__.__name__
+        return map_objects
