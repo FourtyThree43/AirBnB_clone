@@ -3,7 +3,7 @@
 from models.base_model import BaseModel
 
 
-class Review(BaseModule):
+class Review(BaseModel):
     """Public class attributes that inherit from BaseModel"""
     place_id: str = ''
     user_id: str = ''

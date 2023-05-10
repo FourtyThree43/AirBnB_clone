@@ -94,6 +94,48 @@ EOF  help  quit
 $
 ```
 
+## Project Structure
+```
+.
+├── AUTHORS
+├── console.py
+├── hbnb.png
+├── LICENSE
+├── models
+│  ├── __init__.py
+│  ├── amenity.py
+│  ├── base_model.py
+│  ├── city.py
+│  ├── engine
+│  │  ├── __init__.py
+│  │  └── file_storage.py
+│  ├── place.py
+│  ├── review.py
+│  ├── state.py
+│  └── user.py
+├── myScripts
+│  ├── genAuthors-1.sh
+│  ├── genAuthors-2.rb
+│  ├── generate-authors.sh
+│  ├── pyDoc-script.sh
+│  └── pyTest-script.sh
+├── README.md
+└── tests
+   ├── __init__.py
+   └── test_models
+      ├── __init__.py
+      ├── engine
+      │  ├── __init__.py
+      │  └── test_file_storage.py
+      ├── test_amenity.py
+      ├── test_base_model.py
+      ├── test_city.py
+      ├── test_place.py
+      ├── test_review.py
+      ├── test_state.py
+      └── test_user.py
+```
+
 ## Contributors
 
 This project was written by `FourtyThree43` and `joyce-source`. See the [AUTHORS](AUTHORS) file for more information.
