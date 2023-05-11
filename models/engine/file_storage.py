@@ -49,8 +49,8 @@ class FileStorage:
         __file_path.
         """
         json_dict = {}
-        for obj_id, obj_instance in self.__objects.items():
-            json_dict[obj_id] = obj_instance.to_dict()
+        for key, value in self.__objects.items():
+            json_dict[key] = value.to_dict()
 
         with open(self.__file_path, mode='w', encoding='utf-8') as file:
             json.dump(json_dict, file)
@@ -64,8 +64,8 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, mode='r', encoding='utf-8') as file:
                 json_dict = json.load(file)
-            
-            for key, obj_dict in json_dict.items():
+
+            for key, value in json_dict.items():
                 class_name, obj_id = key.split('.')
                 obj_class = eval(class_name)
-                self.__objects[key] = obj_class(**obj_dict)
+                self.__objects[key] = obj_class(**value)

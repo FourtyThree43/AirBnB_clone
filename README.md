@@ -138,7 +138,7 @@ $
 
 ## Contributors
 
-This project was written by `FourtyThree43` and `joyce-source`. See the [AUTHORS](AUTHORS) file for more information.
+This project was written by [FourtyThree43](https://github.com/fourtythree43/) and [joyce-source](https://github.com/joyce-source). See the [AUTHORS](AUTHORS) file for more information.
 
 ## License
 
