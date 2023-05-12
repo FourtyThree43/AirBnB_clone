@@ -85,16 +85,13 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         else:
-            id_list = []
-            for key in obj_dict:
-                id_list.append(key.split('.')[1])
-            if args[1] not in id_list:
+            obj_dict = models.storage.all()
+            obj_key = "{}.{}".format(args[0], args[1])
+            obj = obj_dict.get(obj_key, None)
+            if obj is None:
                 print("** no instance found **")
             else:
-                for obj_id in obj_dict.keys():
-                    obj = obj_dict[obj_id]
-                    if obj.id == args[1]:
-                        print(obj)
+                print(obj)
 
     def do_destroy(self, line):
         """
