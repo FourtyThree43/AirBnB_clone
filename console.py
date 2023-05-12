@@ -3,6 +3,7 @@
 
 import cmd
 import importlib
+import models
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
@@ -35,11 +36,11 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def parseline(self, line):
-        print('parseline(%s) =>' % line)
-        ret = cmd.Cmd.parseline(self, line)
-        print(ret)
-        return ret
+    # def parseline(self, line):
+    #     print('parseline(%s) =>' % line)
+    #     ret = cmd.Cmd.parseline(self, line)
+    #     print(ret)
+    #     return ret
 
     def do_create(self, line):
         """
@@ -48,15 +49,13 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ create BaseModel
         """
         args = line.split()
-        
+
         if len(args) == 0:
             print("** class name missing **")
         else:
             class_name = args[0]
             if class_name not in self.__class_names:
                 print("** class doesn't exist **")
-                print(class_name)
-                print(self.__class_names)
             else:
                 try:
                     module_name = BaseModel.__module__
@@ -76,7 +75,26 @@ class HBNBCommand(cmd.Cmd):
         Usage: show <class name> <id>
         Ex: $ show BaseModel 1234-1234-1234.
         """
-        pass
+        args = line.split()
+        obj_dict = models.storage.all()
+
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.__class_names:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            id_list = []
+            for key in obj_dict:
+                id_list.append(key.split('.')[1])
+            if args[1] not in id_list:
+                print("** no instance found **")
+            else:
+                for obj_id in obj_dict.keys():
+                    obj = obj_dict[obj_id]
+                    if obj.id == args[1]:
+                        print(obj)
 
     def do_destroy(self, line):
         """
