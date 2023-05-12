@@ -2,11 +2,17 @@
 """Defines a Module for the HBNBCommand"""
 
 import cmd
+import importlib
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
     prompt = '(hbnb) '
+    __class_names = ["BaseModel"]
+
+    def default(self, line):
+        print("defualt(%s)" % line)
+        return cmd.Cmd.default(self, line)
 
     def do_greet(self, line):
         '''Pints a greet message
@@ -38,14 +44,36 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         """
         Creates a new instance of BaseModel, saves it (JSON file) & prints id
+        Usage: create <class name>
         Ex: $ create BaseModel
         """
-        pass
+        args = line.split()
+        
+        if len(args) == 0:
+            print("** class name missing **")
+        else:
+            class_name = args[0]
+            if class_name not in self.__class_names:
+                print("** class doesn't exist **")
+                print(class_name)
+                print(self.__class_names)
+            else:
+                try:
+                    module_name = BaseModel.__module__
+                    module = importlib.import_module(module_name)
+                    cls = getattr(module, class_name)
+                except AttributeError:
+                    print("** class doesn't exist **")
+                    return
+
+                new_obj = cls()
+                new_obj.save()
+                print(new_obj.id)
 
     def do_show(self, line):
         """
-        Prints the string representation of an instance based on the class name
-        & id.
+        Prints the string rep. of an instance based on the class name & id.
+        Usage: show <class name> <id>
         Ex: $ show BaseModel 1234-1234-1234.
         """
         pass
@@ -54,14 +82,15 @@ class HBNBCommand(cmd.Cmd):
         """
         Deletes an instance based on the class name and id
         (save the change into the JSON file).
+        Usage: destroy <class name> <id>
         Ex: $ destroy BaseModel 1234-1234-1234.
         """
         pass
 
     def do_all(self, line):
         """
-        Prints all string representation of all instances based or
-        not on the class name.
+        Prints all string rep. of all instances based or not on the class name
+        Usage: all <class name>
         Ex: $ all BaseModel or $ all.
         """
         pass
@@ -70,6 +99,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an instance based on the class name and id by adding or
         updating attribute (save the change into the JSON file).
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         pass
