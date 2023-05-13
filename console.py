@@ -132,13 +132,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj_list = []
             obj_dict = models.storage.all()
-            if len(args) == 0:
+            if len(args) == 0 or args[0] in self.__class_names:
                 for obj in obj_dict.values():
                     obj_list.append(obj.__str__())
-            else:
-                for obj in obj_dict.values():
-                    if type(obj).__name__ == args[0]:
-                        obj_list.append(obj.__str__())
             print(obj_list)
 
     def do_update(self, line):
