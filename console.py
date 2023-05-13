@@ -144,7 +144,29 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
-        pass
+        args = line.split()
+        obj_dict = models.storage.all()
+
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.__class_names:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(args[0], args[1]) not in obj_dict.keys():
+            print("** no instance found **")
+        elif len(args) == 2:
+            print("** attribute name missing **")
+        elif len(args) == 3:
+            print("** value missing **")
+        else:
+            obj_key = "{}.{}".format(args[0], args[1])
+            obj = obj_dict.get(obj_key, None)
+            attr_name = args[2]
+            attr_value = args[3]
+
+            setattr(obj, attr_name, attr_value)
+            models.storage.save()
 
 
 if __name__ == '__main__':
