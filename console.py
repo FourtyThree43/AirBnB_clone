@@ -2,7 +2,10 @@
 """Defines a Module for the HBNBCommand"""
 
 import cmd
+import os
 import importlib
+import inspect
+import pkgutil
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -12,19 +15,38 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
     prompt = '(hbnb) '
-    __class_names = {
-        "BaseModel",
-        "User",
-        "State",
-        "City",
-        "Place",
-        "Amenity",
-        "Review"
-    }
+
+    def __init__(self, *args, **kwargs) -> None:
+        """
+        Initializes a new instance of HBNBCommand class.
+
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Attributes:
+            __class_names (dict): Dictionary containing the names of the
+                classes that inherit from BaseModel and their respective module names.
+        """
+        super().__init__(*args, **kwargs)
+        self.__class_names = self.get_class_names()
+
+    def get_class_names(self) -> None:
+        """
+        Dynamically discover class names that inherit from BaseModel.
+        """
+        class_names = {}
+        for _, file_name, _ in pkgutil.iter_modules(['models']):
+            module_name = os.path.splitext(file_name)[0]
+            module = importlib.import_module('models.' + module_name)
+
+            for name, obj in inspect.getmembers(module):
+                if inspect.isclass(obj) and issubclass(obj, BaseModel):
+                    class_names[name] = 'models.' + module_name
+        return class_names
 
     def default(self, line):
         print("defualt(%s)" % line)
@@ -67,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 try:
-                    module_name = BaseModel.__module__
+                    module_name = self.__class_names[class_name]
                     module = importlib.import_module(module_name)
                     cls = getattr(module, class_name)
                 except AttributeError:
