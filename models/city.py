@@ -1,9 +1,17 @@
 #!/usr/bin/python3
-"""defines class city"""
+"""Defines the City class"""
 from models.base_model import BaseModel
 
 
-class city(BaseModel):
-    """Public class attributes that inherit from BaseModel"""
-    state_id: str = ''
-    name: str = ''
+class City(BaseModel):
+    """
+    Public class with attributes that inherit from BaseModel
+    Represent a city
+
+    Attributes:
+        state_id (str): The state id.
+        name (str): The name of the city
+
+    """
+    state_id: str = ""
+    name: str = ""

@@ -1,8 +1,15 @@
 #!/usr/bin/python3
-"""Defines a class amenity"""
+"""
+Defines a Module for Amenity class
+"""
 from models.base_model import BaseModel
 
 
-class amenity(BaseModel):
-    """Public class attributes that inherit from BaseModel"""
-    name: str = ''
+class Amenity(BaseModel):
+    """Custom amenity class
+
+    Attributes:
+        name(str): amenity name
+
+    """
+    name: str = ""
