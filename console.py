@@ -142,7 +142,8 @@ class HBNBCommand(cmd.Cmd):
             obj_dict = storage.all()
             if len(args) == 0 or args[0] in self.__class_names:
                 for obj in obj_dict.values():
-                    obj_list.append(obj.__str__())
+                    if len(args) == 0 or obj.__class__.__name__ == args[0]:
+                        obj_list.append(obj.__str__())
             print(obj_list)
 
     def do_update(self, line) -> None:
