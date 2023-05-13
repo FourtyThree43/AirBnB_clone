@@ -15,6 +15,7 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
     prompt = '(hbnb) '
@@ -34,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
         super().__init__(*args, **kwargs)
         self.__class_names = self.get_class_names()
 
-    def get_class_names(self) -> None:
+    def get_class_names(self):
         """
         Dynamically discover class names that inherit from BaseModel.
         """
