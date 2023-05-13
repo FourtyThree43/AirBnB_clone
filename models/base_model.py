@@ -23,7 +23,7 @@ class BaseModel:
         save(self): updates instance arttributes with current datetime
         to_dict(self): returns the dictionary values of the instance obj
     '''
-    DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+    DT_FMT = '%Y-%m-%dT%H:%M:%S.%f'
 
     def __init__(self, *args, **kwargs) -> None:
         """
@@ -43,18 +43,18 @@ class BaseModel:
             **kwargs: (optional) dictionary of attribute values to
                       initialize the instance
         """
-        if not kwargs:
-            self.id = str(uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
-            models.storage.new(self)
-        else:
+        self.id = str(uuid4())
+        self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
+
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
-                if key in ("updated_at", "created_at"):
-                    value = datetime.strptime(value, self.DATE_TIME_FORMAT)
-                elif key.startswith("id"):
-                    value = str(value)
-                setattr(self, key, value)
+                if key in ("created_at", "updated_at"):
+                    self.__dict__[key] = datetime.strptime(value, self.DT_FMT)
+                else:
+                    self.__dict__[key] = value
+        else:
+            models.storage.new(self)
 
     def __str__(self) -> str:
         """
@@ -88,9 +88,14 @@ class BaseModel:
         """
         map_objects: dict = {}
         for key, value in self.__dict__.items():
-            if key.startswith("_"):
-                continue
             if isinstance(value, datetime):
                 value = value.isoformat()
             map_objects[key] = value
+        map_objects['__class__'] = self.__class__.__name__
         return map_objects
+
+        # map_objects = self.__dict__.copy()
+        # map_objects['__class__'] = self.__class__.__name__
+        # map_objects['created_at'] = self.created_at.isoformat()
+        # map_objects['updated_at'] = self.updated_at.isoformat()
+        # return map_objects

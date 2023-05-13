@@ -195,7 +195,7 @@ class HBNBCommand(cmd.Cmd):
             obj_key = "{}.{}".format(args[0], args[1])
             obj = obj_dict.get(obj_key, None)
             attr_name = args[2]
-            attr_value = " ".join.args[3:]
+            attr_value = args[3]
 
             setattr(obj, attr_name, attr_value)
             storage.save()
