@@ -77,8 +77,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line) -> None:
         """
-        Creates a new instance of BaseModel, saves it (JSON file) & prints id
         Usage: create <class name>
+
+        Creates a new instance of BaseModel, saves it (JSON file) & prints id
+
         Ex: $ create BaseModel
         """
         args = line.split()
@@ -104,8 +106,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line) -> None:
         """
-        Prints the string rep. of an instance based on the class name & id.
         Usage: show <class name> <id>
+
+        Prints the string rep. of an instance based on the class name & id.
+
         Ex: $ show BaseModel 1234-1234-1234.
         """
         args = line.split()
@@ -127,9 +131,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line) -> None:
         """
+        Usage: destroy <class name> <id>
+
         Deletes an instance based on the class name and id
         (save the change into the JSON file).
-        Usage: destroy <class name> <id>
+
         Ex: $ destroy BaseModel 1234-1234-1234.
         """
         args = line.split()
@@ -153,8 +159,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line) -> None:
         """
-        Prints all string rep. of all instances based or not on the class name
         Usage: all <class name>
+
+        Prints all string rep. of all instances based or not on the class name
+
         Ex: $ all BaseModel or $ all.
         """
         args = line.split()
@@ -163,18 +171,21 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             obj_list = []
-            obj_dict = storage.all()
-            if len(args) == 0 or args[0] in self.__class_names:
-                for obj in obj_dict.values():
-                    if len(args) == 0 or obj.__class__.__name__ == args[0]:
-                        obj_list.append(obj.__str__())
-            print(obj_list)
+            for obj in storage.all().values():
+                if len(args) == 0 or obj.__class__.__name__ == args[0]:
+                    obj_list.append(obj.__str__())
+            if len(obj_list) == 0:
+                print("[]")
+            else:
+                print("[{}]".format(", ".join(obj_list)))
 
     def do_update(self, line) -> None:
         """
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+
         Updates an instance based on the class name and id by adding or
         updating attribute (save the change into the JSON file).
-        Usage: update <class name> <id> <attribute name> "<attribute value>"
+
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         args = line.split()
@@ -200,6 +211,26 @@ class HBNBCommand(cmd.Cmd):
 
             setattr(obj, attr_name, attr_value)
             storage.save()
+
+    def do_count(self, line):
+        """
+        Usage: count <class_name>
+
+        Count the number of instances of a given class.
+
+        Ex: count BaseModel or count User
+        """
+        args = line.split()
+
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        count = 0
+        for obj in storage.all().values():
+            if obj.__class__.__name__ == args[0]:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
