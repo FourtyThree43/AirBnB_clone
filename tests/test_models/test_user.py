@@ -4,7 +4,6 @@
 import unittest
 from unittest.mock import patch
 from models.base_model import BaseModel
-from models import storage
 from models.user import User
 
 
@@ -82,7 +81,8 @@ class TestUser(unittest.TestCase):
         self.assertEqual(my_user.__dict__["updated_at"].isoformat(),
                          my_user_dict["updated_at"])
         self.assertEqual(my_user.__dict__["email"], my_user_dict["email"])
-        self.assertEqual(my_user.__dict__["password"], my_user_dict["password"])
+        self.assertEqual(my_user.__dict__["password"],
+                         my_user_dict["password"])
         self.assertEqual(my_user.__dict__["first_name"],
                          my_user_dict["first_name"])
         self.assertEqual(my_user.__dict__["last_name"],
