@@ -6,6 +6,7 @@ import uuid
 from unittest.mock import patch
 from datetime import datetime
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -59,7 +60,7 @@ class TestBaseModel(unittest.TestCase):
         my_model.number = 23
         my_model_dict = my_model.to_dict()
         self.assertIs(type(my_model_dict), dict)
-        # self.assertEqual(my_model_dict['__class__'], 'BaseModel')
+        self.assertEqual(my_model_dict['__class__'], 'BaseModel')
         self.assertEqual(my_model_dict['name'], 'LeBron')
         self.assertEqual(my_model_dict['number'], 23)
         self.assertIs(type(my_model_dict['created_at']), str)
@@ -77,6 +78,7 @@ class TestBaseModel(unittest.TestCase):
             "updated_at": my_model.updated_at.isoformat(),
             "name": "Lebron",
             "number": 23,
+            "__class__": my_model.__class__.__name__
         }
         self.assertDictEqual(expected_dict, my_dict)
 
@@ -94,21 +96,22 @@ class TestBaseModel(unittest.TestCase):
         my_dict = my_model.to_dict()
         self.assertNotIn("__test", my_dict)
 
-    # @patch('models.storage.FileStorage')
-    # def test_save(self, mock_storage):
-    #     """Test that save method updates the corresponding JSON file"""
-    #     my_model = BaseModel()
-    #     my_model.save()
-    #     mock_storage.return_value.save.assert_called_once_with()
+    @patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates the corresponding JSON file"""
+        my_model = BaseModel()
+        my_model.save()
+        self.assertTrue(mock_storage.new.called)
 
-    def test_invalid_kwargs(self):
-        """
-        Test that creating an instance with invalid kwargs
-        raises a TypeError
-        """
-        # with self.assertRaises(TypeError):
-        #     my_model = BaseModel(123)
-        pass
+    # def test_invalid_kwargs(self):
+    #     """
+    #     Test that creating an instance with invalid kwargs
+    #     raises a TypeError
+    #     """
+    #     with self.assertRaises(TypeError):
+    #          BaseModel(invalid_arg="invalid_value")
+    #     with self.assertRaises(TypeError):
+    #          my_model = BaseModel(123)
 
     def test_invalid_created_at(self):
         """

@@ -30,7 +30,8 @@ class HBNBCommand(cmd.Cmd):
 
         Attributes:
             __class_names (dict): Dictionary containing the names of the
-                classes that inherit from BaseModel and their respective module names.
+                classes that inherit from BaseModel and their respective
+                module names.
         """
         super().__init__(*args, **kwargs)
         self.__class_names = self.get_class_names()

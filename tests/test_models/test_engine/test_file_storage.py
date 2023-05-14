@@ -4,6 +4,7 @@
 import unittest
 import os
 from models.base_model import BaseModel
+from models import storage
 from models.engine.file_storage import FileStorage
 
 
@@ -30,11 +31,12 @@ class TestFileStorage(unittest.TestCase):
         """Test __objects"""
         self.assertEqual(type(FileStorage._FileStorage__objects), dict)
 
-    # def test_all(self):
-    #     """Test all method"""
-    #     storage = FileStorage()
-    #     obj_dict = storage.all()
-    #     self.assertEqual(obj_dict, {})
+    def test_all(self):
+        """Test all method"""
+        storage = FileStorage()
+        obj_dict = storage.all()
+        # self.assertEqual(obj_dict, {})
+        self.assertIs(type(obj_dict), dict)
 
     def test_new(self):
         """Test new method"""
@@ -68,6 +70,7 @@ class TestFileStorage(unittest.TestCase):
         storage.reload()
         # self.assertEqual(len(storage.all()), 2)
         self.assertIn(key, storage.all().keys())
+
 
 if __name__ == '__main__':
     unittest.main()
