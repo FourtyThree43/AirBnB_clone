@@ -51,8 +51,34 @@ class HBNBCommand(cmd.Cmd):
         return class_names
 
     def default(self, line):
-        print("defualt(%s)" % line)
-        return cmd.Cmd.default(self, line)
+        """Process a command line based on predefined syntax.
+
+        This method parses the given command line and executes the
+        corresponding command based on the syntax rules.
+
+        Usage: <class name>.<command name>(<arg1>, <arg2>, ...)
+        
+        """
+        cmd_dict: dict = {"all": self.do_all,
+                          "count": self.do_count,
+                          "show": self.do_show,
+                          "destroy": self.do_destroy,
+                          "update": self.do_update,
+                          "create": self.do_create}
+        parts = line.split(".")
+
+        if len(parts) == 2 and parts[0] in self.__class_names:
+            class_name = parts[0]
+            rest_parts = parts[1].split("(")
+            
+            if len(rest_parts) == 2 and rest_parts[0] in cmd_dict:
+                cmd_name = rest_parts[0]
+                arg_str = rest_parts[1].rstrip(")")
+                args = [class_name] + arg_str.split(",")
+                cmd_str = " ".join(args)
+                return cmd_dict[cmd_name](cmd_str)
+            else:
+                print("*** Unknown Syntax {}".format(line))
 
     def do_greet(self, line) -> None:
         '''Pints a greet message
