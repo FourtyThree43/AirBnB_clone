@@ -77,11 +77,6 @@ class BaseModel:
         """
         Returns a dictionary representation of the current instance.
 
-        The dictionary contains all keys and values of the instance's __dict__,
-        except for keys that start with "_" (private instance variables).
-        If a value is an instance of the `datetime` class, it is converted
-        to an ISO-formatted string using the `isoformat()` method.
-
         Returns:
             A dictionary containing all non-private instance variables
             and their values.
