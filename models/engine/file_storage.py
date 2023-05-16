@@ -73,7 +73,7 @@ class FileStorage:
 
                 for obj in json_dict.values():
                     cls_name = obj["__class__"]
-                    # del obj["__class__"]
+                    del obj["__class__"]
                     self.new(eval(cls_name)(**obj))
         else:
             return
