@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         corresponding command based on the syntax rules.
 
         Usage: <class name>.<command name>(<arg1>, <arg2>, ...)
-        
+
         """
         cmd_dict: dict = {"all": self.do_all,
                           "count": self.do_count,
@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         if len(parts) == 2 and parts[0] in self.__class_names:
             class_name = parts[0]
             rest_parts = parts[1].split("(")
-            
+
             if len(rest_parts) == 2 and rest_parts[0] in cmd_dict:
                 cmd_name = rest_parts[0]
                 arg_str = rest_parts[1].rstrip(")")
@@ -210,9 +210,12 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> "<attribute value>"
 
         Updates an instance based on the class name and id by adding or
-        updating attribute (save the change into the JSON file).
+        updating attribute(name & value) or using a dictionary representation
+        save the change into the JSON file)
 
-        Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        Example:
+        $ update BaseModel 1234-1234-1234 email "aibnb@mail.com"
+        $ update User 1234-1234-1234-1234 {'first_name': 'John', 'age': 89}
         """
         args = line.split()
         obj_dict = storage.all()

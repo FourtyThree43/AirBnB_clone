@@ -54,7 +54,7 @@ class FileStorage:
         Serializes the dictionary __objects to a JSON file located at
         __file_path.
         """
-        json_dict = {}
+        json_dict: dict = {}
         for key, value in self.__objects.items():
             json_dict[key] = value.to_dict()
 
