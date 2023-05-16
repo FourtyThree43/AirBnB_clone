@@ -51,7 +51,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key in ("created_at", "updated_at"):
                     self.__dict__[key] = datetime.strptime(value, self.DT_FMT)
-                else:
+                elif key != "__class__":
                     self.__dict__[key] = value
         else:
             models.storage.new(self)
