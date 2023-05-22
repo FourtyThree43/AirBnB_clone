@@ -48,7 +48,7 @@ section.filters {
 .locations h4, .amenities h4 {
     font-weight: 400;
     font-size: 14px;
-    line-height: 10px;
+    line-height: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
