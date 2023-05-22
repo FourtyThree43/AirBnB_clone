@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # random tests
-__tests__
+__tests__/
