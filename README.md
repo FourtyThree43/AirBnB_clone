@@ -5,6 +5,7 @@
 Welcome to the AirBnB clone project!
 
 ## Table of Contents
+
 - [Description-of-the-project](#description-of-the-project)
 - [Installation](#installation)
 - [Phase-One](#phase-one)
@@ -32,11 +33,12 @@ You won’t implement all the features, but be implemented in phases. After 4 mo
 To Use the AIrBnB clone, clone the repository to your local machine and run the `console.py` file:
 
 ```bash
-$ git clone https://github.com/FourtyThree43/AirBnB_clone.git
-$ cd AirBnB_clone
-$ ./console.py
+git clone https://github.com/FourtyThree43/AirBnB_clone.git
+cd AirBnB_clone
+./console.py
 
 ```
+
 ## Phase One
 
 First step: Write a command interpreter to manage your AirBnB objects.
@@ -95,7 +97,8 @@ $
 ```
 
 ## Project Structure
-```
+
+```bash
 .
 ├── AUTHORS
 ├── console.py

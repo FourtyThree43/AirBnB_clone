@@ -247,7 +247,7 @@ class HBNBCommand(cmd.Cmd):
 
         Count the number of instances of a given class.
 
-        Ex: count BaseModel or count User
+        Ex: $ count BaseModel or $ count User
         """
         args = line.split()
 
