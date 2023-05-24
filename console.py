@@ -238,6 +238,24 @@ class HBNBCommand(cmd.Cmd):
             attr_name = args[2]
             attr_value = args[3]
 
+            try:
+                if attr_value.isdigit():
+                   attr_value = int(attr_value)
+                elif float(attr_value):
+                    attr_value = float(attr_value)
+            except ValueError:
+                pass
+
+            class_attr = type(obj).__dict__
+            if attr_name in class_attr.keys():
+                try:
+                    attr_value = type(class_attr[attr_name])(attr_value)
+                except Exception:
+                    print(f"** value type error: {attr_name} **")
+                    print(f"Got: {type(attr_value)}")
+                    print(f"Expected: {type(class_attr[attr_name])}")
+                    return
+
             setattr(obj, attr_name, attr_value)
             storage.save()
 
